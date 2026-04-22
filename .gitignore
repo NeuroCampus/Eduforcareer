@@ -1,0 +1,125 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules
+node_modules/**
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# Build & Output
+dist
+dist-ssr
+build
+.output
+.vinxi
+.tanstack/**
+.nitro
+*.local
+.rollup.cache
+.vite
+.next
+out/
+
+# Cache & Compiled Files
+.bun
+.bun/**
+*.d.ts
+*.d.ts.map
+*.js.map
+.cache
+.cache/**
+.eslintcache
+*.tsbuildinfo
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+.env.production.local
+.env.test.local
+
+# IDE & Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.swo
+*~
+.project
+.classpath
+*.c9/
+*.iml
+*.sublime-workspace
+.emacs*
+.netrwhist
+
+# Wrangler / Cloudflare
+.wrangler/
+.dev.vars
+.env.local
+wrangler.toml.local
+
+# Testing
+.nyc_output
+coverage
+.mocha_tmp
+test-results
+.coverage
+
+# Temp Files
+tmp/
+temp/
+*.tmp
+.tmp/**
+
+# OS Files
+Thumbs.db
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.fuse_hidden*
+
+# Bundle & Compilation
+.eslintcache
+dist/
+build/
+!dist/.gitkeep
+!build/.gitkeep
+
+# Runtime
+*.pid
+*.pid.lock
+*.seed
+pids/
+
+# Misc
+*.swp
+*.swo
+*#
+.#*
+.tern-port
+.vuepress/dist
+.serverless/
+.fusebox/
+.dynamodb/
+.tern-port
+.vscode-test
+.yarn/cache
+.yarn/unplugged
