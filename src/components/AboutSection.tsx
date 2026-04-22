@@ -1,10 +1,12 @@
+import aboutUs2Img from "../assets/about-us-2.jpeg";
+
 export default function AboutSection() {
   return (
     <section className="bg-background py-16 lg:py-24">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-10 px-4 lg:flex-row lg:px-8">
         <div className="flex-1">
           <img
-            src="https://eduforcareer.com/wp-content/uploads/2025/11/about-us.jpg"
+            src={aboutUs2Img}
             alt="About EduforCareer"
             className="rounded-xl shadow-lg"
             loading="lazy"

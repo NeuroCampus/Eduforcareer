@@ -154,16 +154,6 @@ function ContactPage() {
                   <a href="tel:+917760826949">+91-77608 26949</a>
                 </li>
               </ul>
-
-              <h3 className="mt-8 font-heading text-xl font-bold text-foreground">
-                Social Media
-              </h3>
-
-              <div className="mt-4 flex gap-3">
-                <Facebook className="h-5 w-5" />
-                <Youtube className="h-5 w-5" />
-                <Linkedin className="h-5 w-5" />
-              </div>
             </div>
 
           </div>
