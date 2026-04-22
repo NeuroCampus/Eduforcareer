@@ -29,6 +29,19 @@ const html = `<!doctype html>
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Minimal $_TSR shim to avoid SSR hydration invariants when running as SPA
+      if (!window.$_TSR) {
+        window.$_TSR = {
+          initialized: true,
+          buffer: [],
+          router: { matches: [] },
+          h() {},
+          t: new Map(),
+          p(fn) { if (this.initialized) fn(); else this.buffer.push(fn); }
+        };
+      }
+    </script>
     <script type="module" src="/assets/${jsFile}"></script>
   </body>
 </html>`
