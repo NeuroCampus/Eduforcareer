@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "@tanstack/react-router";
 import { Check, ArrowRight, Plane, Code, Shield, BrainCircuit, Coffee } from "lucide-react";
 import av4 from "../assets/av4.png";
-import av2 from "../assets/av2.jpg";
 import av3 from "../assets/av3.png";
 
 const courses = [
@@ -54,7 +53,7 @@ const courses = [
 ];
 
 export default function RecentCourses() {
-  const heroImages = [av4, av2, av3];
+  const heroImages = [av4, av3];
   const [heroIndex, setHeroIndex] = React.useState(0);
 
   React.useEffect(() => {
