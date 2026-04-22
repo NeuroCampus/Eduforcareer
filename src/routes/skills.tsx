@@ -81,16 +81,6 @@ function SkillsPage() {
           <p className="animate-fade-in-up [animation-delay:200ms] opacity-0 font-poppins text-lg md:text-xl text-slate-300 font-light max-w-2xl leading-relaxed mb-10 border-l-4 border-[#F26522] pl-6">
             Implementing the flagship DDU-GKY initiative under the National Rural Livelihood Mission to drive income diversification and sustainable livelihood creation.
           </p>
-
-          <div className="animate-fade-in-up [animation-delay:300ms] opacity-0 flex flex-col sm:flex-row gap-5 w-full sm:w-auto">
-            <Link
-              to="/contact"
-              className="group relative overflow-hidden inline-flex items-center justify-center gap-3 rounded-xl bg-[#F26522] px-8 py-4 font-montserrat font-bold text-white transition-all duration-300 hover:bg-[#d95517] hover:shadow-[0_0_30px_rgba(242,101,34,0.4)] active:scale-95"
-            >
-              <span className="relative z-10">Partner With Us</span>
-              <ArrowRight className="h-5 w-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-          </div>
         </div>
       </section>
 

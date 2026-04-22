@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Youtube, Linkedin, MapPin, Mail, Phone, ArrowRight } from "lucide-react";
+import { Facebook, Youtube, Linkedin, MapPin, Mail, Phone, ArrowRight, Instagram } from "lucide-react";
 import logo from "../assets/eduforcareer-logow.png";
 
 const whatWeOffer = [
@@ -11,10 +11,11 @@ const whatWeOffer = [
 ];
 
 const popularCourses = [
-  "Python Full Stack Development",
-  "Java full Stack Development",
-  "Artificial Intelligence",
-  "Cyber Security",
+  { name: "Aviation", to: "/aviation" },
+  { name: "Python Full Stack Development", to: "/#recent-courses" },
+  { name: "Java full Stack Development", to: "/#recent-courses" },
+  { name: "Artificial Intelligence", to: "/#recent-courses" },
+  { name: "Cyber Security", to: "/#recent-courses" },
 ];
 
 export default function Footer() {
@@ -53,9 +54,11 @@ export default function Footer() {
             <h4 className="mb-5 font-heading text-lg font-semibold">Popular Courses</h4>
             <ul className="space-y-3">
               {popularCourses.map((course) => (
-                <li key={course} className="flex items-center gap-2 text-sm opacity-80">
-                  <ArrowRight className="h-3.5 w-3.5 flex-shrink-0 text-primary" />
-                  {course}
+                <li key={course.name}>
+                  <Link to={course.to} className="flex items-center gap-2 text-sm opacity-80 transition hover:opacity-100">
+                    <ArrowRight className="h-3.5 w-3.5 text-primary" />
+                    {course.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -79,7 +82,7 @@ export default function Footer() {
               </li>
             </ul>
             <div className="mt-5 flex gap-2">
-              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground transition hover:opacity-80">
+              <a href="https://www.facebook.com/profile.php?id=61563178045998" target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground transition hover:opacity-80">
                 <Facebook className="h-4 w-4" />
               </a>
               <a href="#" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground transition hover:opacity-80">
@@ -87,6 +90,9 @@ export default function Footer() {
               </a>
               <a href="#" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground transition hover:opacity-80">
                 <Linkedin className="h-4 w-4" />
+              </a>
+              <a href="https://www.instagram.com/trublendeduforcareer?igsh=MWc0YjJsbmMwYmg2" target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground transition hover:opacity-80">
+                <Instagram className="h-4 w-4" />
               </a>
             </div>
           </div>
