@@ -6,6 +6,10 @@ import {
   GraduationCap,
 } from "lucide-react";
 
+import home2Img from "@/assets/Home2.jpg";
+import dduGkyImg from "@/assets/ddu-gky.jpg";
+import govKarnatakaImg from "@/assets/government-of-karnataka.webp";
+
 export const Route = createFileRoute("/skills")({
   head: () => ({
     meta: [
@@ -55,7 +59,7 @@ function SkillsPage() {
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-slate-900">
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src="/src/assets/Home2.jpg"
+            src={home2Img}
             alt="Tailoring Training Facility"
             className="w-full h-full object-cover opacity-40 animate-image-zoom"
           />
@@ -112,7 +116,7 @@ function SkillsPage() {
             <div className="flex flex-col items-center gap-4 group">
               <div className="h-20 w-auto transition-transform duration-500 group-hover:scale-105">
                 <img 
-                  src="/src/assets/ddu-gky.jpg" 
+                  src={dduGkyImg} 
                   alt="DDU-GKY Logo" 
                   className="h-full w-full object-contain"
                 />
@@ -131,7 +135,7 @@ function SkillsPage() {
             <div className="flex flex-col items-center gap-4 group">
               <div className="h-20 w-auto transition-transform duration-500 group-hover:scale-105">
                 <img 
-                  src="/src/assets/government-of-karnataka.webp" 
+                  src={govKarnatakaImg} 
                   alt="Government of Karnataka Logo" 
                   className="h-full w-full object-contain"
                 />
@@ -190,7 +194,7 @@ function SkillsPage() {
             <div className="order-1 lg:order-2 relative animate-fade-in-up [animation-delay:200ms]">
               <div className="relative rounded-[2rem] overflow-hidden shadow-2xl aspect-[4/5] transform transition-transform duration-700 hover:scale-[1.02] border-8 border-white">
                 <img
-                  src="/src/assets/Home2.jpg"
+                  src={home2Img}
                   alt="Tailoring Training Facility"
                   className="w-full h-full object-contain"
                 />

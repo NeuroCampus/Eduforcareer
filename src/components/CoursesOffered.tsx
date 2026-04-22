@@ -4,10 +4,10 @@ import { Plane, MonitorPlay, Briefcase, Award, ArrowRight } from "lucide-react";
 // 1. Import all Background Images directly
 // Use absolute src paths for assets to avoid Vite import resolution issues
 // Use the exact image files requested by the user (these exist in /src/assets)
-const aviationBg = "/src/assets/aviationlogo.jpg";
-const itTrainingBg = "/src/assets/it training.jpg";
-const corporateTrainingBg = "/src/assets/corporate training.jpg";
-const skillsBg = "/src/assets/skill india.png";
+import aviationBg from "../assets/aviationlogo.jpg";
+import itTrainingBg from "../assets/it training.jpg";
+import corporateTrainingBg from "../assets/corporate training.jpg";
+import skillsBg from "../assets/skill india.png";
 
 // 2. Use Lucide React icons instead of image files for a much cleaner, professional look
 const categories = [

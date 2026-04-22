@@ -29,6 +29,7 @@ import download3 from "@/assets/download-3.png";
 import download4 from "@/assets/download-4.png";
 import download5 from "@/assets/download-5.png";
 import download6 from "@/assets/download-6.png";
+import aviationLandImg from "@/assets/aviationland.png";
 import { submitApplication } from "@/lib/applicationService";
 
 export const Route = createFileRoute("/aviation")({
@@ -198,7 +199,7 @@ function AviationPage() {
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-slate-900">
         <div className="absolute inset-0">
           <img
-            src="/src/assets/aviationland.png"
+            src={aviationLandImg}
             alt="Aviation Background"
             className="w-full h-full object-cover opacity-70 animate-[slowZoom_40s_ease-in-out_infinite_alternate]"
           />
