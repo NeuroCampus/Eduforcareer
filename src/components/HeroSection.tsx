@@ -89,7 +89,7 @@ export default function HeroSection() {
                         <p className="mt-4 text-lg text-white/90 max-w-xl">Start your career at the airport — hands-on training, simulator hours, and guaranteed placement assistance to jumpstart your aviation journey.</p>
 
                         <div className="mt-8 flex flex-wrap gap-4">
-                          <Link to="/apply" className="inline-flex items-center gap-3 rounded-full bg-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:brightness-95">
+                          <Link to="/aviation" className="inline-flex items-center gap-3 rounded-full bg-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:brightness-95">
                             Apply Now
                           </Link>
 

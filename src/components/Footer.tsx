@@ -86,9 +86,6 @@ export default function Footer() {
                 <Facebook className="h-4 w-4" />
               </a>
               <a href="#" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground transition hover:opacity-80">
-                <Youtube className="h-4 w-4" />
-              </a>
-              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground transition hover:opacity-80">
                 <Linkedin className="h-4 w-4" />
               </a>
               <a href="https://www.instagram.com/trublendeduforcareer?igsh=MWc0YjJsbmMwYmg2" target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground transition hover:opacity-80">
