@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Briefcase, Users, CheckCircle, FileText, MapPin } from "lucide-react";
 import { submitApplication } from "@/lib/applicationService";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/placement")({
   head: () => ({
@@ -126,11 +127,11 @@ function InternalForm() {
     setLoading(true);
     try {
       await submitApplication({ ...formData, type: 'internal' });
-      alert('Internal application submitted — our team will reach out.');
+      toast.success('Internal application submitted — our team will reach out.');
       setFormData({ name: "", email: "", contact: "", currentRole: "", preferredRole: "", address: "" });
     } catch (err: any) {
       console.error(err);
-      alert(err?.message || 'Submission failed');
+      toast.error(err?.message || 'Submission failed');
     } finally { setLoading(false); }
   };
 
@@ -171,12 +172,12 @@ function IndustryForm() {
     setLoading(true);
     try {
       await submitApplication({ ...formData, type: 'industry' });
-      alert('Industry placement application submitted — we will contact you soon.');
+      toast.success('Industry placement application submitted — we will contact you soon.');
       setFormData({ name: "", email: "", contact: "", qualification: "", location: "", address: "" });
       
     } catch (err: any) {
       console.error(err);
-      alert(err?.message || 'Submission failed');
+      toast.error(err?.message || 'Submission failed');
     } finally { setLoading(false); }
   };
 

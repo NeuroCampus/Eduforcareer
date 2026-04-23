@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { MapPin, Mail, Phone, Facebook, Youtube, Linkedin } from "lucide-react";
 import { submitContactForm } from "@/lib/contactService";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -34,7 +35,7 @@ function ContactPage() {
 
       await submitContactForm(form);
 
-      alert("Message sent successfully 🚀");
+      toast.success("Message sent successfully 🚀");
 
       setForm({
         firstName: "",
@@ -45,7 +46,7 @@ function ContactPage() {
 
     } catch (error: any) {
       console.error(error);
-      alert(error.message || "Something went wrong");
+      toast.error(error.message || "Something went wrong");
     } finally {
       setLoading(false);
     }

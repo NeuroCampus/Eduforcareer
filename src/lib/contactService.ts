@@ -2,7 +2,7 @@ import { supabase } from "@/lib/supabase";
 
 export const submitContactForm = async (formData: any) => {
   const { data, error } = await supabase
-    .from("contact_messages")
+    .from("general_enquiry")
     .insert([
       {
         first_name: formData.firstName,

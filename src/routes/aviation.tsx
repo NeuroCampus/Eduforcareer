@@ -31,6 +31,7 @@ import download5 from "@/assets/download-5.png";
 import download6 from "@/assets/download-6.png";
 import aviationLandImg from "@/assets/aviationland.png";
 import { submitApplication } from "@/lib/applicationService";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/aviation")({
   head: () => ({
@@ -154,7 +155,7 @@ function AviationPage() {
 
       await submitApplication(formData);
 
-      alert("Submitted successfully 🚀");
+      toast.success("Submitted successfully 🚀");
 
       setFormData({
         name: "",
@@ -169,7 +170,7 @@ function AviationPage() {
 
     } catch (error: any) {
       console.error(error);
-      alert(error.message || "Something went wrong");
+      toast.error(error.message || "Something went wrong");
     } finally {
       setLoading(false);
     }

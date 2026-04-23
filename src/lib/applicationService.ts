@@ -15,7 +15,7 @@ export const submitApplication = async (formData: any) => {
   };
 
   const { data, error } = await supabase
-    .from("applications")
+    .from("aviation_application")
     .insert([payload])
     .select();
 
