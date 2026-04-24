@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import aboutImg from "@/assets/about-us.jpg";
-import { Target, Users, BookOpen, Award } from "lucide-react";
+import visionImg from "@/assets/vision.jpg";
+import missionImg from "@/assets/mission.jpg";
+import { Target, Users, BookOpen, Award, Eye, CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -27,7 +29,7 @@ function AboutPage() {
       {/* Banner */}
       <section className="page-header-banner py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <p className="section-label text-sm">LEARN. GROW. SUCCEED.</p>
+          <p className="section-label text-sm font-semibold tracking-wider text-primary">LEARN. GROW. SUCCEED.</p>
           <h1 className="mt-2 font-heading text-4xl font-bold text-foreground md:text-5xl">About Us</h1>
         </div>
       </section>
@@ -50,13 +52,73 @@ function AboutPage() {
         </div>
       </section>
 
+      {/* Vision & Mission */}
+      <section className="pb-16 lg:pb-24">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+          <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
+            
+            {/* Vision Card */}
+            <div className="group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="relative h-56 w-full overflow-hidden">
+                <img 
+                  src={visionImg} 
+                  alt="Our Vision" 
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                  loading="lazy" 
+                />
+                {/* Floating Icon Over Image */}
+                <div className="absolute left-6 top-6 flex h-12 w-12 items-center justify-center rounded-xl bg-background/90 text-primary shadow-sm backdrop-blur-md">
+                  <Eye className="h-6 w-6" />
+                </div>
+              </div>
+              <div className="p-8">
+                <h2 className="font-heading text-2xl font-bold text-foreground">Our Vision</h2>
+                <p className="mt-4 leading-relaxed text-muted-foreground">
+                  To become a trusted partner in workforce transformation by enabling people and organizations to thrive in a technology-driven future.
+                </p>
+              </div>
+            </div>
+
+            {/* Mission Card */}
+            <div className="group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="relative h-56 w-full overflow-hidden">
+                <img 
+                  src={missionImg} 
+                  alt="Our Mission" 
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                  loading="lazy" 
+                />
+                {/* Floating Icon Over Image */}
+                <div className="absolute left-6 top-6 flex h-12 w-12 items-center justify-center rounded-xl bg-background/90 text-primary shadow-sm backdrop-blur-md">
+                  <Target className="h-6 w-6" />
+                </div>
+              </div>
+              <div className="p-8">
+                <h2 className="font-heading text-2xl font-bold text-foreground">Our Mission</h2>
+                <ul className="mt-4 space-y-4 text-muted-foreground">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+                    <span className="leading-relaxed">To deliver high-impact training aligned with industry 4.0 technologies and evolving job roles.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+                    <span className="leading-relaxed">To foster long-term partnerships with corporate clients for continuous workforce upskilling and talent development.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Values */}
       <section className="bg-muted py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <h2 className="text-center font-heading text-3xl font-bold text-foreground">Why Choose Us</h2>
           <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v) => (
-              <div key={v.title} className="rounded-xl bg-background p-6 shadow-sm">
+              <div key={v.title} className="rounded-xl bg-background p-6 shadow-sm transition-shadow hover:shadow-md">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-hero-bg text-primary">
                   <v.icon className="h-6 w-6" />
                 </div>

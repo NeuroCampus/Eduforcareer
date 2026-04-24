@@ -14,12 +14,12 @@ import {
   Headphones,
   MapPin,
   Phone,
-  Globe,
   Sparkles,
   Award,
   Clock,
   TrendingUp,
-  AlertCircle
+  AlertCircle,
+  Mail
 } from "lucide-react";
 
 // Import logo images
@@ -46,11 +46,68 @@ export const Route = createFileRoute("/aviation")({
   component: AviationPage,
 });
 
+// UPDATED: Colors are now static (removed hover prefixes)
 const benefits = [
-  { icon: Plane, title: "Guaranteed Airport Job", desc: "Direct, assured placement support across major Indian airports." },
-  { icon: DollarSign, title: "Salary from Day One", desc: "Start earning a professional salary the moment you join." },
-  { icon: GraduationCap, title: "Dual Work-Study Model", desc: "Build your career and complete your qualifications simultaneously." },
-  { icon: Rocket, title: "Job-Ready in 90 Days", desc: "Elite, fast-track program designed for rapid career entry." },
+  { 
+    icon: Plane, 
+    title: "Guaranteed Airport Job", 
+    desc: "Direct, assured placement support across major Indian airports.",
+    colors: {
+      borderColor: "border-sky-300",
+      shadowColor: "hover:shadow-sky-500/15",
+      glow: "from-sky-300/40",
+      iconBg: "bg-sky-50",
+      iconBorder: "border-sky-200",
+      iconText: "text-sky-600",
+      titleColor: "text-sky-700",
+      bottomLine: "from-sky-400 to-sky-600"
+    }
+  },
+  { 
+    icon: DollarSign, 
+    title: "Salary from Day One", 
+    desc: "Start earning a professional salary the moment you join.",
+    colors: {
+      borderColor: "border-orange-300",
+      shadowColor: "hover:shadow-orange-500/15",
+      glow: "from-orange-300/40",
+      iconBg: "bg-orange-50",
+      iconBorder: "border-orange-200",
+      iconText: "text-orange-600",
+      titleColor: "text-orange-700",
+      bottomLine: "from-orange-400 to-orange-600"
+    }
+  },
+  { 
+    icon: GraduationCap, 
+    title: "Dual Work-Study Model", 
+    desc: "Build your career and complete your qualifications simultaneously.",
+    colors: {
+      borderColor: "border-lime-300",
+      shadowColor: "hover:shadow-lime-500/15",
+      glow: "from-lime-300/40",
+      iconBg: "bg-lime-50",
+      iconBorder: "border-lime-200",
+      iconText: "text-lime-600",
+      titleColor: "text-lime-700",
+      bottomLine: "from-lime-400 to-lime-600"
+    }
+  },
+  { 
+    icon: Clock, 
+    title: "Job-Ready in 90 Days", 
+    desc: "Elite, fast-track program designed for rapid career entry.",
+    colors: {
+      borderColor: "border-teal-300",
+      shadowColor: "hover:shadow-teal-500/15",
+      glow: "from-teal-300/40",
+      iconBg: "bg-teal-50",
+      iconBorder: "border-teal-200",
+      iconText: "text-teal-600",
+      titleColor: "text-teal-700",
+      bottomLine: "from-teal-400 to-teal-600"
+    }
+  },
 ];
 
 const whiteCollar = [
@@ -236,7 +293,7 @@ function AviationPage() {
               className="group relative overflow-hidden inline-flex items-center justify-center gap-3 rounded-xl bg-orange-500 px-8 py-4 font-montserrat font-bold text-white transition-all duration-300 hover:bg-orange-600 hover:shadow-[0_0_30px_rgba(249,115,22,0.4)] active:scale-95"
             >
               <span className="relative z-10">Start Your Journey</span>
-              <Rocket className="h-5 w-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+
               <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
             </a>
 
@@ -248,41 +305,43 @@ function AviationPage() {
         </div>
       </section>
 
-      {/* --- REFINED AGENCY-STYLE BENEFITS SECTION --- */}
+      {/* --- PREMIUM STATIC BENEFITS SECTION (4 CARDS) --- */}
       <section className="py-24 lg:py-32 relative z-20 -mt-16">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <div className="text-center mb-16">
-            <span className="font-montserrat text-xs font-bold tracking-[0.2em] text-orange-500 uppercase block mb-2">Benefits</span>
+            <span className="font-montserrat text-xs font-bold tracking-[0.2em] text-orange-500 uppercase block mb-2">Program Value</span>
             <h2 className="font-montserrat text-3xl md:text-4xl font-extrabold text-slate-900">
               Why Choose EduforCareer Aviation?
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((b, idx) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            {benefits.map((b) => (
               <div
                 key={b.title}
-                className="group relative flex flex-col bg-white rounded-2xl p-8 border border-slate-200 transition-all duration-500 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-1"
+                // Border color is static, hover keeps the shadow and subtle translation
+                className={`group relative bg-white rounded-[2rem] p-8 lg:p-10 border transition-all duration-500 ${b.colors.borderColor} hover:shadow-2xl ${b.colors.shadowColor} hover:-translate-y-1 overflow-hidden z-10 flex flex-col h-full`}
               >
-                {/* Structural Top Line */}
-                <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-orange-400 to-orange-600 scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100 rounded-t-2xl" />
+                {/* Static Ambient Glow */}
+                <div className={`absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-br ${b.colors.glow} to-transparent rounded-full blur-[40px] opacity-100 pointer-events-none -z-10`} />
                 
-                <div className="flex flex-col h-full justify-between gap-12 relative z-10">
-                  <div className="flex items-start justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-50 border border-slate-100 text-slate-600 transition-colors duration-300 group-hover:bg-orange-50 group-hover:border-orange-100 group-hover:text-orange-500">
-                      <b.icon className="h-5 w-5 stroke-[1.5]" />
-                    </div>
-                    {/* Agency Aesthetic Numbering */}
-                    <span className="font-montserrat text-5xl font-black text-slate-50 opacity-80 select-none transition-colors duration-500 group-hover:text-orange-50">
-                      0{idx + 1}
-                    </span>
+                <div className="flex flex-col h-full">
+                  {/* Premium Static Icon Container (Keeps hover scale) */}
+                  <div className={`mb-8 inline-flex items-center justify-center w-16 h-16 rounded-[1.25rem] border shadow-sm ${b.colors.iconBg} ${b.colors.iconBorder} group-hover:scale-110 transition-transform duration-500`}>
+                    <b.icon className={`w-7 h-7 ${b.colors.iconText} stroke-[1.5]`} />
                   </div>
+
+                  <h3 className={`font-montserrat text-xl font-bold mb-4 ${b.colors.titleColor}`}>
+                    {b.title}
+                  </h3>
                   
-                  <div>
-                    <h3 className="font-montserrat text-lg font-bold text-slate-900 mb-3">{b.title}</h3>
-                    <p className="font-poppins text-sm text-slate-500 leading-relaxed">{b.desc}</p>
-                  </div>
+                  <p className="font-poppins text-slate-500 leading-relaxed text-sm">
+                    {b.desc}
+                  </p>
                 </div>
+
+                {/* Static Colored Bottom Line */}
+                <div className={`absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r ${b.colors.bottomLine}`} />
               </div>
             ))}
           </div>
@@ -604,14 +663,14 @@ function AviationPage() {
                     </div>
                   </a>
                   
-                  {/* Website */}
-                  <a href="https://www.eduforcareer.com" target="_blank" rel="noreferrer" className="flex items-center gap-3 group/link p-3 rounded-xl transition-all hover:bg-orange-50 border border-transparent hover:border-orange-100">
+                  {/* Email */}
+                  <a href="mailto:info@eduforcareer.com" className="flex items-center gap-3 group/link p-3 rounded-xl transition-all hover:bg-orange-50 border border-transparent hover:border-orange-100">
                     <div className="p-2 rounded-lg bg-slate-50 border border-slate-100 group-hover/link:bg-white group-hover/link:border-orange-200 transition-colors flex items-center justify-center">
-                      <Globe className="h-4 w-4 text-slate-400 group-hover/link:text-orange-500 transition-colors" />
+                      <Mail className="h-4 w-4 text-slate-400 group-hover/link:text-orange-500 transition-colors" />
                     </div>
                     <div>
-                      <p className="font-poppins text-[10px] text-slate-400 uppercase font-bold tracking-wide">Website</p>
-                      <span className="font-montserrat font-bold text-slate-900 text-sm md:text-base group-hover/link:text-orange-600 transition-colors">eduforcareer.com</span>
+                      <p className="font-poppins text-[10px] text-slate-400 uppercase font-bold tracking-wide">Email Us</p>
+                      <span className="font-montserrat font-bold text-slate-900 text-sm md:text-base group-hover/link:text-orange-600 transition-colors">info@eduforcareer.com</span>
                     </div>
                   </a>
                 </div>

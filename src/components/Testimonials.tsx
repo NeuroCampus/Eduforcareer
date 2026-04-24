@@ -21,14 +21,14 @@ const testimonials = [
   },
   {
     text: "Excellent experience! The lessons, assignments, and support team made learning smooth and enjoyable. I highly recommend these courses to anyone looking to upskill.",
-    name: "Rahul",
+    name: "Nishanth S",
     role: "Python Developer",
     avatar: test3, // Using imported local asset
   },
   // --- NEW AVIATION REVIEWS ---
   {
     text: "The Airport Ground Staff Training was a game-changer. The hands-on modules on Customer Service & Passenger Handling were incredibly detailed. Within weeks of completing the program, I secured a placement at a major international airport!",
-    name: "Shravan s.",
+    name: "Shravan Ashok.",
     role: "Ground Operations Executive",
     // Realistic AI/Stock Indian Face
     avatar: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?q=80&w=150&auto=format&fit=crop", 
