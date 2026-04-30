@@ -1,11 +1,14 @@
+import React, { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { 
   CheckCircle2, MapPin, ShieldCheck, Home, 
-  UserCheck, User, Mail, Phone, Calendar, BookOpen, Send, ChevronRight, Bus, HeartPulse
+  UserCheck, User, Mail, Phone, Calendar, BookOpen, Send, ChevronRight, Bus, HeartPulse,
+  AlertCircle
 } from "lucide-react";
 // CRITICAL: Ensure your actual file is renamed to "tailoring-video.mp4" (no spaces)
 import tailoringVideo from "@/assets/tailoring video.mp4";
-import { supabase } from "./supabaseClient";
+import { submitTailoringApplication } from "@/lib/applicationService";
+import { toast } from "sonner";
 
 
 export const Route = createFileRoute("/apply-tailoring")({
@@ -23,6 +26,93 @@ export const Route = createFileRoute("/apply-tailoring")({
 });
 
 function TailoringApplyPage() {
+  // Form State
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    contact: "",
+    dob: "",
+    qualification: "",
+    customQualification: "",
+    location: "",
+    address: "",
+  });
+
+  // Validation Errors State
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    
+    // Clear error for the field being typed in
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Invalid email format";
+    }
+    if (!formData.contact.trim()) {
+      newErrors.contact = "Contact number is required";
+    } else if (!/^\d{10}$/.test(formData.contact.replace(/\s+/g, ""))) {
+      newErrors.contact = "Must be a 10-digit number";
+    }
+    if (!formData.dob) newErrors.dob = "Date of Birth is required";
+    if (!formData.qualification) newErrors.qualification = "Qualification is required";
+    
+    if (formData.qualification === "Other" && !formData.customQualification.trim()) {
+      newErrors.customQualification = "Please specify your qualification";
+    }
+
+    if (!formData.location) newErrors.location = "Location preference is required";
+    if (!formData.address.trim()) newErrors.address = "Residence address is required";
+
+    return newErrors;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const validationErrors = validateForm();
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      toast.error("Please fix the errors in the form");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await submitTailoringApplication(formData);
+      toast.success("Application submitted successfully! 🚀");
+
+      setFormData({
+        name: "",
+        email: "",
+        contact: "",
+        dob: "",
+        qualification: "",
+        customQualification: "",
+        location: "",
+        address: "",
+      });
+
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error.message || "Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-[#F8FAFC] font-sans text-slate-900 selection:bg-teal-500 selection:text-white overflow-x-hidden relative">
       
@@ -224,7 +314,7 @@ function TailoringApplyPage() {
             </p>
           </div>
 
-          <form className="space-y-5 sm:space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
             <div className="grid gap-5 sm:gap-6 sm:grid-cols-2">
               
               {/* Name Input */}
@@ -236,10 +326,14 @@ function TailoringApplyPage() {
                   </div>
                   <input 
                     type="text" 
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
                     required 
                     placeholder="John Doe" 
-                    className="w-full rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50/50 py-3.5 sm:py-4 pl-12 sm:pl-14 pr-4 sm:pr-5 text-slate-900 placeholder:text-slate-400 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 text-sm sm:text-base" 
+                    className={`w-full rounded-xl sm:rounded-2xl border ${errors.name ? 'border-red-400' : 'border-slate-200'} bg-slate-50/50 py-3.5 sm:py-4 pl-12 sm:pl-14 pr-4 sm:pr-5 text-slate-900 placeholder:text-slate-400 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 text-sm sm:text-base`} 
                   />
+                  {errors.name && <p className="text-red-500 text-[10px] mt-1 ml-1 flex items-center gap-1"><AlertCircle className="w-3 h-3"/>{errors.name}</p>}
                 </div>
               </div>
 
@@ -252,10 +346,14 @@ function TailoringApplyPage() {
                   </div>
                   <input 
                     type="email" 
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     required 
                     placeholder="john@example.com" 
-                    className="w-full rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50/50 py-3.5 sm:py-4 pl-12 sm:pl-14 pr-4 sm:pr-5 text-slate-900 placeholder:text-slate-400 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 text-sm sm:text-base" 
+                    className={`w-full rounded-xl sm:rounded-2xl border ${errors.email ? 'border-red-400' : 'border-slate-200'} bg-slate-50/50 py-3.5 sm:py-4 pl-12 sm:pl-14 pr-4 sm:pr-5 text-slate-900 placeholder:text-slate-400 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 text-sm sm:text-base`} 
                   />
+                  {errors.email && <p className="text-red-500 text-[10px] mt-1 ml-1 flex items-center gap-1"><AlertCircle className="w-3 h-3"/>{errors.email}</p>}
                 </div>
               </div>
 
@@ -268,10 +366,14 @@ function TailoringApplyPage() {
                   </div>
                   <input 
                     type="tel" 
+                    name="contact"
+                    value={formData.contact}
+                    onChange={handleInputChange}
                     required 
                     placeholder="+91 98765 43210" 
-                    className="w-full rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50/50 py-3.5 sm:py-4 pl-12 sm:pl-14 pr-4 sm:pr-5 text-slate-900 placeholder:text-slate-400 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 text-sm sm:text-base" 
+                    className={`w-full rounded-xl sm:rounded-2xl border ${errors.contact ? 'border-red-400' : 'border-slate-200'} bg-slate-50/50 py-3.5 sm:py-4 pl-12 sm:pl-14 pr-4 sm:pr-5 text-slate-900 placeholder:text-slate-400 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 text-sm sm:text-base`} 
                   />
+                  {errors.contact && <p className="text-red-500 text-[10px] mt-1 ml-1 flex items-center gap-1"><AlertCircle className="w-3 h-3"/>{errors.contact}</p>}
                 </div>
               </div>
 
@@ -284,9 +386,13 @@ function TailoringApplyPage() {
                   </div>
                   <input 
                     type="date" 
+                    name="dob"
+                    value={formData.dob}
+                    onChange={handleInputChange}
                     required 
-                    className="w-full rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50/50 py-3.5 sm:py-4 pl-12 sm:pl-14 pr-4 sm:pr-5 text-slate-900 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 text-sm sm:text-base" 
+                    className={`w-full rounded-xl sm:rounded-2xl border ${errors.dob ? 'border-red-400' : 'border-slate-200'} bg-slate-50/50 py-3.5 sm:py-4 pl-12 sm:pl-14 pr-4 sm:pr-5 text-slate-900 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 text-sm sm:text-base`} 
                   />
+                  {errors.dob && <p className="text-red-500 text-[10px] mt-1 ml-1 flex items-center gap-1"><AlertCircle className="w-3 h-3"/>{errors.dob}</p>}
                 </div>
               </div>
             </div>
@@ -300,11 +406,13 @@ function TailoringApplyPage() {
                     <BookOpen className="h-5 w-5 text-slate-400 group-focus-within:text-teal-500 transition-colors duration-300" />
                   </div>
                   <select 
+                    name="qualification"
+                    value={formData.qualification}
+                    onChange={handleInputChange}
                     required 
-                    defaultValue=""
-                    className="w-full appearance-none rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50/50 py-3.5 sm:py-4 pl-12 sm:pl-14 pr-10 text-slate-900 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 invalid:text-slate-400 cursor-pointer text-sm sm:text-base"
+                    className={`w-full appearance-none rounded-xl sm:rounded-2xl border ${errors.qualification ? 'border-red-400' : 'border-slate-200'} bg-slate-50/50 py-3.5 sm:py-4 pl-12 sm:pl-14 pr-10 text-slate-900 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 invalid:text-slate-400 cursor-pointer text-sm sm:text-base`}
                   >
-                    <option value="" disabled hidden>Select qualification</option>
+                    <option value="" disabled>Select qualification</option>
                     {["10th", "PUC", "Degree", "Other"].map(qual => (
                       <option key={qual} value={qual} className="text-slate-900">{qual}</option>
                     ))}
@@ -313,6 +421,22 @@ function TailoringApplyPage() {
                     <ChevronRight className="h-4 w-4 text-slate-400 rotate-90 transition-transform duration-300 group-focus-within:-rotate-90" />
                   </div>
                 </div>
+                {errors.qualification && <p className="text-red-500 text-[10px] mt-1 ml-1 flex items-center gap-1"><AlertCircle className="w-3 h-3"/>{errors.qualification}</p>}
+                
+                {/* Other Qualification Input */}
+                {formData.qualification === "Other" && (
+                  <div className="mt-4 animate-fade-in-up">
+                    <input 
+                      type="text" 
+                      name="customQualification"
+                      value={formData.customQualification}
+                      onChange={handleInputChange}
+                      placeholder="Specify your qualification" 
+                      className={`w-full rounded-xl border ${errors.customQualification ? 'border-red-400' : 'border-slate-200'} bg-slate-50/50 py-3 px-4 text-slate-900 outline-none focus:border-teal-500 transition-all text-sm`} 
+                    />
+                    {errors.customQualification && <p className="text-red-500 text-[10px] mt-1 ml-1 flex items-center gap-1"><AlertCircle className="w-3 h-3"/>{errors.customQualification}</p>}
+                  </div>
+                )}
               </div>
 
               <div className="space-y-1.5 sm:space-y-2 group">
@@ -322,11 +446,13 @@ function TailoringApplyPage() {
                     <MapPin className="h-5 w-5 text-slate-400 group-focus-within:text-teal-500 transition-colors duration-300" />
                   </div>
                   <select 
+                    name="location"
+                    value={formData.location}
+                    onChange={handleInputChange}
                     required 
-                    defaultValue=""
-                    className="w-full appearance-none rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50/50 py-3.5 sm:py-4 pl-12 sm:pl-14 pr-10 text-slate-900 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 invalid:text-slate-400 cursor-pointer text-sm sm:text-base"
+                    className={`w-full appearance-none rounded-xl sm:rounded-2xl border ${errors.location ? 'border-red-400' : 'border-slate-200'} bg-slate-50/50 py-3.5 sm:py-4 pl-12 sm:pl-14 pr-10 text-slate-900 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 invalid:text-slate-400 cursor-pointer text-sm sm:text-base`}
                   >
-                    <option value="" disabled hidden>Select a location</option>
+                    <option value="" disabled>Select a location</option>
                     <option value="Kengeri, Bangalore" className="text-slate-900">Kengeri, Bangalore</option>
                     <option value="Ramanagara" className="text-slate-900">Ramanagara</option>
                   </select>
@@ -334,6 +460,7 @@ function TailoringApplyPage() {
                     <ChevronRight className="h-4 w-4 text-slate-400 rotate-90 transition-transform duration-300 group-focus-within:-rotate-90" />
                   </div>
                 </div>
+                {errors.location && <p className="text-red-500 text-[10px] mt-1 ml-1 flex items-center gap-1"><AlertCircle className="w-3 h-3"/>{errors.location}</p>}
               </div>
             </div>
 
@@ -345,11 +472,15 @@ function TailoringApplyPage() {
                   <Home className="h-5 w-5 text-slate-400 group-focus-within:text-teal-500 transition-colors duration-300" />
                 </div>
                 <textarea 
+                  name="address"
+                  value={formData.address}
+                  onChange={handleInputChange}
                   required 
                   rows={4}
                   placeholder="Enter your full residential address..." 
-                  className="w-full resize-none rounded-xl sm:rounded-2xl border border-slate-200 bg-slate-50/50 py-3.5 sm:py-4 pl-12 sm:pl-14 pr-4 sm:pr-5 text-slate-900 placeholder:text-slate-400 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 text-sm sm:text-base" 
+                  className={`w-full resize-none rounded-xl sm:rounded-2xl border ${errors.address ? 'border-red-400' : 'border-slate-200'} bg-slate-50/50 py-3.5 sm:py-4 pl-12 sm:pl-14 pr-4 sm:pr-5 text-slate-900 placeholder:text-slate-400 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 text-sm sm:text-base`} 
                 />
+                {errors.address && <p className="text-red-500 text-[10px] mt-1 ml-1 flex items-center gap-1"><AlertCircle className="w-3 h-3"/>{errors.address}</p>}
               </div>
             </div>
 
@@ -357,13 +488,14 @@ function TailoringApplyPage() {
             <div className="pt-4 sm:pt-6">
               <button 
                 type="submit" 
-                className="group relative flex w-full items-center justify-center gap-3 rounded-xl sm:rounded-2xl bg-teal-600 py-4 text-sm sm:text-base font-bold text-white shadow-[0_6px_20px_rgba(13,148,136,0.25)] transition-all duration-300 hover:-translate-y-1 hover:bg-teal-700 hover:shadow-[0_12px_30px_rgba(13,148,136,0.35)] overflow-hidden"
+                disabled={loading}
+                className={`group relative flex w-full items-center justify-center gap-3 rounded-xl sm:rounded-2xl bg-teal-600 py-4 text-sm sm:text-base font-bold text-white shadow-[0_6px_20px_rgba(13,148,136,0.25)] transition-all duration-300 hover:-translate-y-1 hover:bg-teal-700 hover:shadow-[0_12px_30px_rgba(13,148,136,0.35)] overflow-hidden ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
                 <div className="absolute inset-0 w-[200%] h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
                 
                 <span className="relative z-10 flex items-center gap-2">
-                  Submit Application
-                  <Send className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  {loading ? "Submitting..." : "Submit Application"}
+                  {!loading && <Send className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />}
                 </span>
               </button>
             

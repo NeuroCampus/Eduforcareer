@@ -25,3 +25,29 @@ export const submitApplication = async (formData: any) => {
 
   return data;
 };
+
+export const submitTailoringApplication = async (formData: any) => {
+  const payload = {
+    name: formData.name,
+    email: formData.email,
+    contact: formData.contact,
+    dob: formData.dob,
+    qualification:
+      formData.qualification === "Other"
+        ? formData.customQualification
+        : formData.qualification,
+    location: formData.location,
+    address: formData.address,
+  };
+
+  const { data, error } = await supabase
+    .from("tailoring_application")
+    .insert([payload])
+    .select();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+};
