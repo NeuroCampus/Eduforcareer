@@ -15,6 +15,7 @@ import { Route as ItTrainingRouteImport } from './routes/it-training'
 import { Route as CorporateTrainingRouteImport } from './routes/corporate-training'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AviationRouteImport } from './routes/aviation'
+import { Route as ApplyTailoringRouteImport } from './routes/apply-tailoring'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -48,6 +49,11 @@ const AviationRoute = AviationRouteImport.update({
   path: '/aviation',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApplyTailoringRoute = ApplyTailoringRouteImport.update({
+  id: '/apply-tailoring',
+  path: '/apply-tailoring',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -62,6 +68,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/apply-tailoring': typeof ApplyTailoringRoute
   '/aviation': typeof AviationRoute
   '/contact': typeof ContactRoute
   '/corporate-training': typeof CorporateTrainingRoute
@@ -72,6 +79,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/apply-tailoring': typeof ApplyTailoringRoute
   '/aviation': typeof AviationRoute
   '/contact': typeof ContactRoute
   '/corporate-training': typeof CorporateTrainingRoute
@@ -83,6 +91,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/apply-tailoring': typeof ApplyTailoringRoute
   '/aviation': typeof AviationRoute
   '/contact': typeof ContactRoute
   '/corporate-training': typeof CorporateTrainingRoute
@@ -95,6 +104,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/apply-tailoring'
     | '/aviation'
     | '/contact'
     | '/corporate-training'
@@ -105,6 +115,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/apply-tailoring'
     | '/aviation'
     | '/contact'
     | '/corporate-training'
@@ -115,6 +126,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/apply-tailoring'
     | '/aviation'
     | '/contact'
     | '/corporate-training'
@@ -126,6 +138,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ApplyTailoringRoute: typeof ApplyTailoringRoute
   AviationRoute: typeof AviationRoute
   ContactRoute: typeof ContactRoute
   CorporateTrainingRoute: typeof CorporateTrainingRoute
@@ -178,6 +191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AviationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apply-tailoring': {
+      id: '/apply-tailoring'
+      path: '/apply-tailoring'
+      fullPath: '/apply-tailoring'
+      preLoaderRoute: typeof ApplyTailoringRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -198,6 +218,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ApplyTailoringRoute: ApplyTailoringRoute,
   AviationRoute: AviationRoute,
   ContactRoute: ContactRoute,
   CorporateTrainingRoute: CorporateTrainingRoute,
