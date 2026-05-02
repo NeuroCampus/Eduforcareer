@@ -6,7 +6,7 @@ import {
   GraduationCap,
 } from "lucide-react";
 
-import home2Img from "@/assets/tailoring-hero.png";
+import home2Img from "@/assets/tailoring-hero1.png";
 import dduGkyImg from "@/assets/ddu-gky.jpg";
 import govKarnatakaImg from "@/assets/government-of-karnataka.webp";
 
