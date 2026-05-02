@@ -1,5 +1,5 @@
 import { useNavigate } from "@tanstack/react-router";
-import { Plane, MonitorPlay, Briefcase, Award, ArrowRight } from "lucide-react";
+import { Plane, MonitorPlay, Briefcase, Award, ArrowRight, Scissors } from "lucide-react";
 
 // 1. Import all Background Images directly
 // Use absolute src paths for assets to avoid Vite import resolution issues
@@ -8,6 +8,7 @@ import aviationBg from "../assets/aviationlogo.jpg";
 import itTrainingBg from "../assets/it training.jpg";
 import corporateTrainingBg from "../assets/corporate training.jpg";
 import skillsBg from "../assets/skill india.png";
+import tailoringBg from "../assets/tailoring.jpg";
 
 // 2. Use Lucide React icons instead of image files for a much cleaner, professional look
 const categories = [
@@ -16,6 +17,12 @@ const categories = [
     icon: Plane,
     background: aviationBg,
     path: "/aviation",
+  },
+  {
+    name: "Tailoring",
+    icon: Scissors,
+    background: tailoringBg,
+    path: "/apply-tailoring",
   },
   {
     name: "IT Training",
@@ -34,6 +41,7 @@ const categories = [
     icon: Award,
     background: skillsBg,
     path: "/skills",
+    bgSize: "70%", // Adjust to fit logo nicely
   },
 ];
 
@@ -72,7 +80,7 @@ export default function CoursesOffered() {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
           {categories.map((c) => (
             <div
               key={c.name}
@@ -84,8 +92,10 @@ export default function CoursesOffered() {
                 className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110"
                 style={{
                   backgroundImage: `url('${c.background}')`,
-                  backgroundSize: "cover",
+                  backgroundSize: c.bgSize || "cover",
                   backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                  backgroundColor: c.bgSize ? "#fff" : "transparent", // Add white background if logo-style
                 }}
               />
               

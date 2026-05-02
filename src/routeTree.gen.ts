@@ -17,6 +17,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AviationRouteImport } from './routes/aviation'
 import { Route as ApplyTailoringRouteImport } from './routes/apply-tailoring'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as RecentCoursesRouteImport } from './routes/RecentCourses'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SkillsRoute = SkillsRouteImport.update({
@@ -59,6 +60,11 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecentCoursesRoute = RecentCoursesRouteImport.update({
+  id: '/RecentCourses',
+  path: '/RecentCourses',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -67,6 +73,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/RecentCourses': typeof RecentCoursesRoute
   '/about': typeof AboutRoute
   '/apply-tailoring': typeof ApplyTailoringRoute
   '/aviation': typeof AviationRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/RecentCourses': typeof RecentCoursesRoute
   '/about': typeof AboutRoute
   '/apply-tailoring': typeof ApplyTailoringRoute
   '/aviation': typeof AviationRoute
@@ -90,6 +98,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/RecentCourses': typeof RecentCoursesRoute
   '/about': typeof AboutRoute
   '/apply-tailoring': typeof ApplyTailoringRoute
   '/aviation': typeof AviationRoute
@@ -103,6 +112,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/RecentCourses'
     | '/about'
     | '/apply-tailoring'
     | '/aviation'
@@ -114,6 +124,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/RecentCourses'
     | '/about'
     | '/apply-tailoring'
     | '/aviation'
@@ -125,6 +136,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/RecentCourses'
     | '/about'
     | '/apply-tailoring'
     | '/aviation'
@@ -137,6 +149,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  RecentCoursesRoute: typeof RecentCoursesRoute
   AboutRoute: typeof AboutRoute
   ApplyTailoringRoute: typeof ApplyTailoringRoute
   AviationRoute: typeof AviationRoute
@@ -205,6 +218,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/RecentCourses': {
+      id: '/RecentCourses'
+      path: '/RecentCourses'
+      fullPath: '/RecentCourses'
+      preLoaderRoute: typeof RecentCoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -217,6 +237,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  RecentCoursesRoute: RecentCoursesRoute,
   AboutRoute: AboutRoute,
   ApplyTailoringRoute: ApplyTailoringRoute,
   AviationRoute: AviationRoute,
