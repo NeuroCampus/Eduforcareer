@@ -6,7 +6,7 @@ import {
   GraduationCap,
 } from "lucide-react";
 
-import home2Img from "@/assets/Home2.jpg";
+import home2Img from "@/assets/tailoring-hero.png";
 import dduGkyImg from "@/assets/ddu-gky.jpg";
 import govKarnatakaImg from "@/assets/government-of-karnataka.webp";
 
@@ -196,7 +196,7 @@ function SkillsPage() {
                 <img
                   src={home2Img}
                   alt="Tailoring Training Facility"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#00758B]/40 to-transparent mix-blend-multiply" />
               </div>

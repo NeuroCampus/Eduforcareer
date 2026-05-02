@@ -9,6 +9,7 @@ import {
 import tailoringVideo from "@/assets/tailoring video.mp4";
 import { submitTailoringApplication } from "@/lib/applicationService";
 import { toast } from "sonner";
+import shahiImg from "@/assets/shahi.png";
 
 
 export const Route = createFileRoute("/apply-tailoring")({
@@ -24,6 +25,10 @@ export const Route = createFileRoute("/apply-tailoring")({
   }),
   component: TailoringApplyPage,
 });
+
+const partnerLogos = [
+  { name: "Shahi Exports", src: shahiImg },
+];
 
 function TailoringApplyPage() {
   // Form State
@@ -127,6 +132,16 @@ function TailoringApplyPage() {
         }
         @keyframes shimmer {
           100% { transform: translateX(100%); }
+        }
+        @keyframes marquee {
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 30s linear infinite; 
+        }
+        .animate-marquee-slow {
+          animation: marquee 60s linear infinite; 
         }
         .animate-fade-in-up {
           animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -293,6 +308,48 @@ function TailoringApplyPage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* --- INDUSTRY PARTNER SECTION --- */}
+      <section className="py-20 bg-white/40 relative flex flex-col items-center justify-center overflow-hidden border-y border-slate-100">
+        <div className="text-center mb-12 relative z-20">
+          <span className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-teal-700 border border-teal-100/50 mb-4 shadow-sm">
+            Industry Partner
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Our Hiring Partner
+          </h2>
+        </div>
+
+        <div className="absolute left-0 top-0 z-20 h-full w-20 md:w-40 bg-gradient-to-r from-[#F8FAFC] to-transparent pointer-events-none" />
+        <div className="absolute right-0 top-0 z-20 h-full w-20 md:w-40 bg-gradient-to-l from-[#F8FAFC] to-transparent pointer-events-none" />
+
+        <div className="flex w-max animate-marquee-slow hover:[animation-play-state:paused] py-8">
+          {[...Array(20)].map((_, i) => (
+            <div 
+              key={i} 
+              className="flex items-center justify-center w-[300px] sm:w-[400px] flex-shrink-0 px-8 group cursor-default"
+            >
+              <div className="relative flex items-center justify-center w-full h-32 rounded-[2.5rem] bg-white border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-2 hover:border-teal-200 px-12 py-8">
+                <img 
+                  src={partnerLogos[0].src} 
+                  alt={partnerLogos[0].name} 
+                  className="max-h-16 w-full object-contain relative z-10 transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div className="mt-12 text-center relative z-20">
+          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/80 backdrop-blur-sm border border-slate-200 shadow-sm transition-all hover:border-teal-200">
+            <CheckCircle2 className="h-5 w-5 text-teal-600" />
+            <p className="font-semibold text-slate-700 text-sm">
+              Direct Recruitment with India's Largest Garment Manufacturer
+            </p>
+          </div>
         </div>
       </section>
 
