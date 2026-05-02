@@ -55,9 +55,7 @@ function TailoringApplyPage() {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (formData.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Invalid email format";
     }
     if (!formData.contact.trim()) {
@@ -319,7 +317,7 @@ function TailoringApplyPage() {
               
               {/* Name Input */}
               <div className="space-y-1.5 sm:space-y-2 group">
-                <label className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">Full Name <span className="text-teal-500">*</span></label>
+                <label className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">Full Name / ಪೂರ್ಣ ಹೆಸರು <span className="text-teal-500">*</span></label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 sm:pl-5 flex items-center pointer-events-none">
                     <User className="h-5 w-5 text-slate-400 group-focus-within:text-teal-500 transition-colors duration-300" />
@@ -339,7 +337,7 @@ function TailoringApplyPage() {
 
               {/* Email Input */}
               <div className="space-y-1.5 sm:space-y-2 group">
-                <label className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">Email Address <span className="text-teal-500">*</span></label>
+                <label className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">Email Address / ಇಮೇಲ್ ವಿಳಾಸ</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 sm:pl-5 flex items-center pointer-events-none">
                     <Mail className="h-5 w-5 text-slate-400 group-focus-within:text-teal-500 transition-colors duration-300" />
@@ -349,8 +347,7 @@ function TailoringApplyPage() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    required 
-                    placeholder="john@example.com" 
+                    placeholder="john@example.com (Optional)" 
                     className={`w-full rounded-xl sm:rounded-2xl border ${errors.email ? 'border-red-400' : 'border-slate-200'} bg-slate-50/50 py-3.5 sm:py-4 pl-12 sm:pl-14 pr-4 sm:pr-5 text-slate-900 placeholder:text-slate-400 outline-none transition-all duration-300 hover:border-slate-300 hover:bg-slate-50 focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 text-sm sm:text-base`} 
                   />
                   {errors.email && <p className="text-red-500 text-[10px] mt-1 ml-1 flex items-center gap-1"><AlertCircle className="w-3 h-3"/>{errors.email}</p>}
@@ -359,7 +356,7 @@ function TailoringApplyPage() {
 
               {/* Contact Number */}
               <div className="space-y-1.5 sm:space-y-2 group">
-                <label className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">Contact Number <span className="text-teal-500">*</span></label>
+                <label className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">Contact Number / ದೂರವಾಣಿ ಸಂಖ್ಯೆ <span className="text-teal-500">*</span></label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 sm:pl-5 flex items-center pointer-events-none">
                     <Phone className="h-5 w-5 text-slate-400 group-focus-within:text-teal-500 transition-colors duration-300" />
@@ -379,7 +376,7 @@ function TailoringApplyPage() {
 
               {/* Date of Birth */}
               <div className="space-y-1.5 sm:space-y-2 group">
-                <label className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">Date of Birth <span className="text-teal-500">*</span></label>
+                <label className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">Date of Birth / ಜನ್ಮ ದಿನಾಂಕ <span className="text-teal-500">*</span></label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 sm:pl-5 flex items-center pointer-events-none">
                     <Calendar className="h-5 w-5 text-slate-400 group-focus-within:text-teal-500 transition-colors duration-300" />
@@ -400,7 +397,7 @@ function TailoringApplyPage() {
             {/* Select Menus */}
             <div className="grid gap-5 sm:gap-6 sm:grid-cols-2">
               <div className="space-y-1.5 sm:space-y-2 group">
-                <label className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">Qualification <span className="text-teal-500">*</span></label>
+                <label className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">Qualification / ಅರ್ಹತೆ <span className="text-teal-500">*</span></label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 sm:pl-5 flex items-center pointer-events-none">
                     <BookOpen className="h-5 w-5 text-slate-400 group-focus-within:text-teal-500 transition-colors duration-300" />
@@ -440,7 +437,7 @@ function TailoringApplyPage() {
               </div>
 
               <div className="space-y-1.5 sm:space-y-2 group">
-                <label className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">Preferred Location <span className="text-teal-500">*</span></label>
+                <label className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">Preferred Location / ಆದ್ಯತೆಯ ಸ್ಥಳ <span className="text-teal-500">*</span></label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-4 sm:pl-5 flex items-center pointer-events-none">
                     <MapPin className="h-5 w-5 text-slate-400 group-focus-within:text-teal-500 transition-colors duration-300" />
@@ -466,7 +463,7 @@ function TailoringApplyPage() {
 
             {/* Residence Address */}
             <div className="space-y-1.5 sm:space-y-2 group">
-              <label className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">Residence Address <span className="text-teal-500">*</span></label>
+              <label className="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-500 ml-1">Residence Address /ನಿವಾಸದ ವಿಳಾಸ <span className="text-teal-500">*</span></label>
               <div className="relative">
                 <div className="absolute top-4 sm:top-5 left-0 pl-4 sm:pl-5 flex items-start pointer-events-none">
                   <Home className="h-5 w-5 text-slate-400 group-focus-within:text-teal-500 transition-colors duration-300" />

@@ -17,6 +17,8 @@ const categories = [
     icon: Plane,
     background: aviationBg,
     path: "/aviation",
+    bgSize: "99%", // Adjust to fit logo nicely
+
   },
   {
     name: "Tailoring",

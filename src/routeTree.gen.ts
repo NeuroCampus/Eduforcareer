@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SkillsRouteImport } from './routes/skills'
 import { Route as PlacementRouteImport } from './routes/placement'
 import { Route as ItTrainingRouteImport } from './routes/it-training'
+import { Route as ItDetailsRouteImport } from './routes/it-details'
 import { Route as CorporateTrainingRouteImport } from './routes/corporate-training'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AviationRouteImport } from './routes/aviation'
@@ -33,6 +34,11 @@ const PlacementRoute = PlacementRouteImport.update({
 const ItTrainingRoute = ItTrainingRouteImport.update({
   id: '/it-training',
   path: '/it-training',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ItDetailsRoute = ItDetailsRouteImport.update({
+  id: '/it-details',
+  path: '/it-details',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CorporateTrainingRoute = CorporateTrainingRouteImport.update({
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/aviation': typeof AviationRoute
   '/contact': typeof ContactRoute
   '/corporate-training': typeof CorporateTrainingRoute
+  '/it-details': typeof ItDetailsRoute
   '/it-training': typeof ItTrainingRoute
   '/placement': typeof PlacementRoute
   '/skills': typeof SkillsRoute
@@ -91,6 +98,7 @@ export interface FileRoutesByTo {
   '/aviation': typeof AviationRoute
   '/contact': typeof ContactRoute
   '/corporate-training': typeof CorporateTrainingRoute
+  '/it-details': typeof ItDetailsRoute
   '/it-training': typeof ItTrainingRoute
   '/placement': typeof PlacementRoute
   '/skills': typeof SkillsRoute
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/aviation': typeof AviationRoute
   '/contact': typeof ContactRoute
   '/corporate-training': typeof CorporateTrainingRoute
+  '/it-details': typeof ItDetailsRoute
   '/it-training': typeof ItTrainingRoute
   '/placement': typeof PlacementRoute
   '/skills': typeof SkillsRoute
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
     | '/aviation'
     | '/contact'
     | '/corporate-training'
+    | '/it-details'
     | '/it-training'
     | '/placement'
     | '/skills'
@@ -130,6 +140,7 @@ export interface FileRouteTypes {
     | '/aviation'
     | '/contact'
     | '/corporate-training'
+    | '/it-details'
     | '/it-training'
     | '/placement'
     | '/skills'
@@ -142,6 +153,7 @@ export interface FileRouteTypes {
     | '/aviation'
     | '/contact'
     | '/corporate-training'
+    | '/it-details'
     | '/it-training'
     | '/placement'
     | '/skills'
@@ -155,6 +167,7 @@ export interface RootRouteChildren {
   AviationRoute: typeof AviationRoute
   ContactRoute: typeof ContactRoute
   CorporateTrainingRoute: typeof CorporateTrainingRoute
+  ItDetailsRoute: typeof ItDetailsRoute
   ItTrainingRoute: typeof ItTrainingRoute
   PlacementRoute: typeof PlacementRoute
   SkillsRoute: typeof SkillsRoute
@@ -181,6 +194,13 @@ declare module '@tanstack/react-router' {
       path: '/it-training'
       fullPath: '/it-training'
       preLoaderRoute: typeof ItTrainingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/it-details': {
+      id: '/it-details'
+      path: '/it-details'
+      fullPath: '/it-details'
+      preLoaderRoute: typeof ItDetailsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/corporate-training': {
@@ -243,6 +263,7 @@ const rootRouteChildren: RootRouteChildren = {
   AviationRoute: AviationRoute,
   ContactRoute: ContactRoute,
   CorporateTrainingRoute: CorporateTrainingRoute,
+  ItDetailsRoute: ItDetailsRoute,
   ItTrainingRoute: ItTrainingRoute,
   PlacementRoute: PlacementRoute,
   SkillsRoute: SkillsRoute,

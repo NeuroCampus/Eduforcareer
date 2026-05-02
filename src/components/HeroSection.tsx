@@ -2,16 +2,23 @@ import React, { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import aviationImage from "../assets/av1.png";
 import heroStudent from "../assets/herosection image.png";
+import corporateHero from "../assets/hero-corporate.png";
+import tailoringHero from "../assets/hero-tailoring.png";
 
 const slides = [
   {
     id: "main",
     label: "LEARN. GROW. SUCCEED.",
-    title: "EduforCareer – Building Skills. Creating Careers.",
+    title: (
+      <>
+        EduforCareer — <span className="text-blue-500">Building Skills.</span> <br className="hidden lg:block" /> Creating Careers.
+      </>
+    ),
     copy:
-      "EduforCareer is a leading training and career development institute dedicated to preparing individuals for the fast-growing IT and corporate workforce. With expert trainers, industry-aligned curriculum, and strong placement support, we help learners gain the skills they need to build successful careers.",
-    img: heroStudent,
+      "We prepare individuals for the fast-growing IT and corporate workforce with industry-aligned curriculum, expert mentors, and strong placement support to jumpstart your professional journey.",
+    img: corporateHero,
     cta: { text: "Get Started", to: "/contact" },
+    badgeHighlight: "Job Guaranteed",
   },
   {
     id: "aviation",
@@ -21,6 +28,17 @@ const slides = [
       "Our aviation programs combine hands-on flight training, simulated scenarios, and industry partnerships to prepare aspiring pilots and aviation professionals for fast-paced careers in the skies.",
     img: aviationImage,
     cta: { text: "Explore Aviation", to: "/aviation" },
+    badgeHighlight: "Start earning in just 90 days",
+  },
+  {
+    id: "tailoring",
+    label: "IMMEDIATE HIRING",
+    title: "Professional Tailoring & Design",
+    copy: "Accelerate your career in Bangalore's premier garment sector. Experience comprehensive corporate benefits, stable career growth, and a definitive path to leadership.",
+    img: tailoringHero,
+    cta: { text: "Apply Now", to: "/apply-tailoring" },
+    badge: "Monthly Salary + Benefits",
+    badgeHighlight: "₹16k – ₹18k",
   },
 ];
 
@@ -68,67 +86,79 @@ export default function HeroSection() {
             style={{ transform: `translateX(-${index * 100}%)` }}
           >
             {slides.map((s) => {
-              const imgClass =
-                s.id === "aviation"
-                  ? "h-auto w-[220px] sm:w-[360px] md:w-[520px] lg:w-[720px] rounded-lg shadow-xl object-cover"
-                  : "h-auto w-[200px] sm:w-[320px] md:w-[400px] lg:w-[460px]";
-              const textMax = s.id === "aviation" ? "lg:max-w-2xl" : "";
+              const isAviation = s.id === "aviation";
+              const isTailoring = s.id === "tailoring";
+              
+              // Theme-specific styles
+              let overlayClass = "absolute inset-0 bg-gradient-to-r from-white/100 via-white/90 to-transparent";
+              let textColor = "text-slate-900";
+              let mutedTextColor = "text-slate-700 font-medium";
+              let labelColor = "text-blue-700";
+              let labelBg = "bg-blue-50";
+              let btnColor = "bg-blue-600";
+              let badgeColor = "text-blue-700";
+
+              if (isAviation) {
+                overlayClass = "absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent";
+                textColor = "text-white";
+                mutedTextColor = "text-white/90";
+                labelColor = "text-white";
+                labelBg = "bg-white/10";
+                btnColor = "bg-blue-500";
+                badgeColor = "text-yellow-300";
+              } else if (isTailoring) {
+                overlayClass = "absolute inset-0 bg-gradient-to-r from-teal-50/100 via-teal-50/90 to-transparent";
+                textColor = "text-slate-900";
+                mutedTextColor = "text-slate-700 font-medium";
+                labelColor = "text-teal-800";
+                labelBg = "bg-teal-50";
+                btnColor = "bg-teal-600";
+                badgeColor = "text-teal-700";
+              }
 
               return (
                 <div key={s.id} className="min-w-full h-full">
-                  {s.id === "aviation" ? (
-                    <div
-                      className="relative flex h-full items-center px-6 lg:px-12"
-                      style={{ backgroundImage: `url(${s.img})`, backgroundSize: "cover", backgroundPosition: "center" }}
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+                  <div
+                    className="relative flex h-full items-center px-6 lg:px-12"
+                    style={{ backgroundImage: `url(${s.img})`, backgroundSize: "cover", backgroundPosition: "center" }}
+                  >
+                    {/* Cinematic Overlay */}
+                    <div className={overlayClass} />
 
-                      <div className="relative z-10 max-w-3xl text-left py-0 pl-6">
-                        <p className="section-label mb-3 text-sm tracking-widest text-white">{s.label}</p>
-                        <h1 className="font-heading text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl ">{s.title}</h1>
-                        <p className="mt-4 text-lg text-white/90 max-w-xl">Start your career at the airport — hands-on training, simulator hours, and guaranteed placement assistance to jumpstart your aviation journey.</p>
+                    <div className="relative z-10 max-w-4xl text-left py-0 pl-6 lg:pl-16">
+                      <p className={`mb-4 inline-block rounded-full ${labelBg} px-4 py-1 text-xs font-bold uppercase tracking-widest ${labelColor} border ${isTailoring ? 'border-teal-100' : ''}`}>
+                        {s.label}
+                      </p>
+                      
+                      <h1 className={`font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] ${textColor} tracking-tight`}>
+                        {s.title}
+                      </h1>
+                      
+                      <p className={`mt-6 text-lg sm:text-xl leading-relaxed ${mutedTextColor} max-w-2xl`}>
+                        {s.copy}
+                      </p>
 
-                        <div className="mt-8 flex flex-wrap gap-4">
-                          <Link to="/aviation" className="inline-flex items-center gap-3 rounded-full bg-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:brightness-95">
-                            Apply Now
-                          </Link>
-
-                          <Link to="/aviation" className="inline-flex items-center gap-3 rounded-full bg-white/90 px-6 py-3 text-sm font-semibold text-slate-900 shadow">
-                            Get Details
-                          </Link>
-                        </div>
-
-                        <div className="mt-8 inline-block rounded-full bg-white/10 py-2 px-4 text-sm text-white">
-                          <strong className="text-yellow-300">Start earning in just 90 days</strong>
-                        </div>
-
-                        <div className="mt-6 text-sm text-white/80">
-                          <span className="inline-block rounded-full bg-white/10 px-3 py-1">100% Guaranteed Placement Support at Major Airports Across India</span>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col-reverse items-center gap-6 px-4 py-8 lg:flex-row lg:py-0 h-full">
-                      <div className={`flex-1 flex flex-col justify-center items-center lg:items-start text-center lg:text-left px-4 md:pl-6 lg:pl-24 ${textMax}`}>
-                        <p className="section-label mb-3 text-sm tracking-widest">{s.label}</p>
-                        <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-foreground">
-                          {s.title}
-                        </h1>
-                        <p className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed text-muted-foreground lg:text-lg">{s.copy}</p>
-
-                        <Link
-                          to={s.cta.to}
-                          className="mt-8 self-center lg:self-start inline-block rounded-full bg-accent-orange px-8 py-3 font-heading text-sm font-semibold text-primary-foreground shadow-md transition hover:shadow-lg hover:brightness-110"
+                      <div className="mt-10 flex flex-wrap gap-4">
+                        <Link 
+                          to={s.cta.to} 
+                          className={`inline-flex items-center gap-3 rounded-full ${btnColor} px-8 py-4 text-base font-bold text-white shadow-xl transition-all hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0`}
                         >
-                          {s.cta.text}
+                          {isAviation ? 'Apply Now' : s.cta.text}
                         </Link>
+
                       </div>
 
-                      <div className="mb-6 flex flex-1 items-center justify-center lg:mb-0 lg:justify-end">
-                        <img src={s.img} alt={s.title} width={716} height={1024} className={`${imgClass} max-h-[45vh] sm:max-h-[60vh] md:max-h-[80vh]`} loading="eager" />
+                      {/* Specialized Badges */}
+                      <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        <div className={`inline-block rounded-full ${isAviation ? 'bg-white/10' : isTailoring ? 'bg-white shadow-sm border border-teal-100' : 'bg-slate-100'} py-2 px-4 text-sm font-semibold ${textColor}`}>
+                          <strong className={badgeColor}>
+                            {s.badgeHighlight}
+                          </strong>
+                          {" "}{s.badge}
+                        </div>
                       </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               );
             })}

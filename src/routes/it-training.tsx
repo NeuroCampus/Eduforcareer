@@ -43,6 +43,7 @@ export const Route = createFileRoute("/it-training")({
 // Mapped exactly to Eduforcareer Brand Colors
 const courses = [
   {
+    id: "python",
     icon: Terminal,
     title: "Python Full Stack",
     desc: "Master Python for modern web development, data science, and automation.",
@@ -53,6 +54,7 @@ const courses = [
     textColor: "text-[#00AEEF]",
   },
   {
+    id: "java",
     icon: Database,
     title: "Java Enterprise",
     desc: "Build highly scalable, enterprise-level applications with Java and Spring.",
@@ -61,27 +63,7 @@ const courses = [
     color: "from-[#F26522] to-orange-600", // Brand Orange
     bgLight: "bg-[#F26522]/10",
     textColor: "text-[#F26522]",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Cyber Security",
-    desc: "Protect critical systems and networks from advanced digital threats.",
-    duration: "3 Months",
-    skills: ["Ethical Hacking", "Network Security", "Pen Testing", "Linux"],
-    color: "from-[#00758B] to-teal-700", // Brand Dark Teal
-    bgLight: "bg-[#00758B]/10",
-    textColor: "text-[#00758B]",
-  },
-  {
-    icon: Cpu,
-    title: "AI & Machine Learning",
-    desc: "Engineer intelligent applications and solve complex real-world problems.",
-    duration: "3 Months",
-    skills: ["TensorFlow", "Neural Networks", "NLP", "Python"],
-    color: "from-[#8CC63F] to-green-600", // Brand Lime Green
-    bgLight: "bg-[#8CC63F]/10",
-    textColor: "text-[#8CC63F]",
-  },
+  }
 ];
 
 const benefits = [
@@ -188,13 +170,15 @@ function ITTrainingPage() {
             </h2>
           </div>
 
-          <div className="grid gap-6 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
             {courses.map((course, idx) => {
               const Icon = course.icon;
               return (
-                <div
+                <Link
                   key={idx}
-                  className="group flex flex-col rounded-3xl bg-white border border-slate-200 p-6 md:p-8 shadow-sm transition-all duration-500 hover:shadow-xl hover:border-slate-300 hover:-translate-y-2 relative overflow-hidden h-full"
+                  to="/it-details"
+                  hash={course.id}
+                  className="group flex flex-col rounded-3xl bg-white border border-slate-200 p-6 md:p-8 shadow-sm transition-all duration-500 hover:shadow-xl hover:border-slate-300 hover:-translate-y-2 relative overflow-hidden h-full cursor-pointer"
                 >
                   {/* Subtle Background Gradient on Hover */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${course.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500 pointer-events-none`} />
@@ -216,17 +200,23 @@ function ITTrainingPage() {
                     {course.desc}
                   </p>
 
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    {course.skills.map((skill, sidx) => (
-                      <span
-                        key={sidx}
-                        className={`inline-block rounded-md ${course.bgLight} px-2.5 py-1 text-[10px] md:text-[11px] font-bold ${course.textColor} uppercase tracking-wider`}
-                      >
-                        {skill}
-                      </span>
-                    ))}
+                  <div className="flex items-center justify-between gap-4 mt-auto pt-6 border-t border-slate-50">
+                    <div className="flex flex-wrap gap-2">
+                      {course.skills.map((skill, sidx) => (
+                        <span
+                          key={sidx}
+                          className={`inline-block rounded-md ${course.bgLight} px-2.5 py-1 text-[10px] md:text-[11px] font-bold ${course.textColor} uppercase tracking-wider`}
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="flex-shrink-0 inline-flex items-center gap-2 text-sm font-bold text-[#00AEEF] hover:text-blue-600 transition-colors group/link">
+                      Explore
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1" />
+                    </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

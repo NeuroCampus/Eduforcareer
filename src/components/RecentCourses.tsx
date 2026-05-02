@@ -82,6 +82,7 @@ const courses = [
     badge: "Immediate Hiring",
   },
   {
+    id: "python",
     type: "standard",
     image: "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=2031&auto=format&fit=crop",
     title: "Python Full Stack",
@@ -91,6 +92,7 @@ const courses = [
     career: "Full Stack Developer",
   },
   {
+    id: "java",
     type: "standard",
     image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop",
     title: "Java Enterprise",
@@ -98,24 +100,6 @@ const courses = [
     desc: "Build robust, scalable enterprise applications with Java frameworks.",
     bullets: ["Spring Boot & Hibernate", "Microservices", "API Security"],
     career: "Backend Engineer",
-  },
-  {
-    type: "standard",
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070&auto=format&fit=crop",
-    title: "Cyber Security",
-    icon: <Shield className="w-5 h-5 text-slate-700" />,
-    desc: "Defend networks and data against sophisticated digital threats.",
-    bullets: ["Ethical Hacking", "Network Defense", "Threat Intelligence"],
-    career: "Security Engineer",
-  },
-  {
-    type: "standard",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop",
-    title: "AI & ML Engineering",
-    icon: <BrainCircuit className="w-5 h-5 text-slate-700" />,
-    desc: "Master the math and models behind the Generative AI revolution.",
-    bullets: ["Deep Learning & NLP", "RAG Pipelines", "Model Deployment"],
-    career: "AI/ML Architect",
   },
 ];
 
@@ -163,7 +147,7 @@ export default function RecentCourses() {
         </FadeInOnScroll>
 
         {/* Grid Container */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 xl:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 xl:gap-10">
           
           {courses.map((course, index) => {
             if (course.type === "hero") {
@@ -239,7 +223,11 @@ export default function RecentCourses() {
             // Standard Tech Cards
             return (
               <FadeInOnScroll key={course.title} delay={index * 100}>
-                <div className="group flex flex-col bg-white rounded-[2rem] border border-slate-200/60 p-5 transition-all duration-500 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:border-teal-500/30 hover:-translate-y-2 h-full">
+                <Link
+                  to="/it-details"
+                  hash={course.id}
+                  className="group flex flex-col bg-white rounded-[2rem] border border-slate-200/60 p-5 transition-all duration-500 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:border-teal-500/30 hover:-translate-y-2 h-full cursor-pointer"
+                >
                   <div className="relative aspect-[4/3] rounded-[1.5rem] overflow-hidden mb-6 shadow-sm">
                     <img
                       src={course.image}
@@ -269,12 +257,18 @@ export default function RecentCourses() {
                       ))}
                     </div>
                     
-                    <div className="mt-auto pt-5 border-t border-slate-100">
-                      <p className="text-[11px] uppercase tracking-wider font-bold text-slate-400">Target Role</p>
-                      <p className="text-sm font-bold text-slate-800 mt-1.5">{course.career}</p>
+                    <div className="mt-auto pt-5 border-t border-slate-100 flex items-center justify-between">
+                      <div>
+                        <p className="text-[11px] uppercase tracking-wider font-bold text-slate-400">Target Role</p>
+                        <p className="text-sm font-bold text-slate-800 mt-1">{course.career}</p>
+                      </div>
+                      <div className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-700 group/link">
+                        Explore
+                        <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1" />
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </FadeInOnScroll>
             );
           })}
